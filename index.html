@@ -7,14 +7,18 @@
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
     
     <style>
-        /* --- PREMIUM CSS STYLES --- */
+        /* --- GLOBAL VARIABLES & THEME --- */
         :root {
-            --primary-dark: #1a1a1a;
-            --secondary-dark: #2c2c2c;
-            --accent-gold: #c5a059;
-            --light-bg: #f9f9f9;
+            --primary-dark: #1a1a1a;    /* Dark Charcoal */
+            --secondary-dark: #2c2c2c;  /* Soft Black */
+            --accent-gold: #c5a059;     /* Premium Gold */
+            --light-bg: #f5f5f7;        /* Light Grey (Apple style) */
             --text-grey: #666;
             --white: #ffffff;
+        }
+
+        html {
+            scroll-behavior: smooth;
         }
 
         body {
@@ -28,62 +32,82 @@
 
         /* Typography */
         h1, h2, h3 {
-            font-family: 'Playfair Display', serif; /* Elegant font for headings */
+            font-family: 'Playfair Display', serif;
             margin: 0;
         }
 
-        /* Navigation */
+        /* --- OPTION 2: FLOATING GLASS NAVIGATION --- */
         header {
-            background-color: var(--white);
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-            position: sticky;
+            background: transparent;
+            padding: 20px 0;
+            position: fixed; /* Floats over content */
+            width: 100%;
             top: 0;
             z-index: 1000;
+            pointer-events: none; /* Allows clicking through the empty sides */
         }
+        
         .nav-container {
+            pointer-events: auto; /* Re-enable clicks for the bar itself */
             display: flex;
             justify-content: space-between;
             align-items: center;
-            max-width: 1200px;
+            max-width: 900px; /* Compact width for "Floating" look */
             margin: auto;
-            padding: 15px 20px;
+            padding: 12px 30px;
+            
+            /* The Glass Effect */
+            background: rgba(255, 255, 255, 0.85); /* Semi-transparent white */
+            backdrop-filter: blur(12px); /* Blurs the background behind it */
+            -webkit-backdrop-filter: blur(12px); /* Safari support */
+            border-radius: 50px; /* Fully rounded pill shape */
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1); /* Soft floating shadow */
+            border: 1px solid rgba(255,255,255,0.5);
         }
+        
         .logo {
-            font-size: 1.8rem;
-            font-weight: 700;
+            font-size: 1.3rem;
+            font-weight: 800;
             color: var(--primary-dark);
-            letter-spacing: 1px;
             text-transform: uppercase;
-            border: 2px solid var(--primary-dark);
-            padding: 5px 15px;
+            letter-spacing: 1px;
+            text-decoration: none;
         }
+
         nav ul {
             list-style: none;
             display: flex;
-            gap: 30px;
+            gap: 10px;
             margin: 0;
             padding: 0;
         }
+        
         nav a {
-            color: var(--primary-dark);
+            color: var(--secondary-dark);
             text-decoration: none;
             font-weight: 700;
-            font-size: 0.9rem;
+            font-size: 0.8rem;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: color 0.3s;
+            letter-spacing: 0.5px;
+            padding: 10px 20px;
+            border-radius: 30px;
+            transition: all 0.3s ease;
         }
+        
+        /* Nav Link Hover Animation */
         nav a:hover {
+            background-color: var(--primary-dark);
             color: var(--accent-gold);
+            transform: translateY(-2px);
         }
 
-        /* Hero Section - Stylish Banner */
+        /* --- HERO SECTION --- */
         .hero {
-            /* Gradient acts as a placeholder for your background image */
-            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1600607686527-6fb886090705?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80');
+            /* Background image setup */
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.4)), url('https://images.unsplash.com/photo-1600607686527-6fb886090705?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80');
             background-size: cover;
             background-position: center;
-            height: 85vh; /* Takes up 85% of screen height */
+            height: 100vh; /* Full screen height */
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -93,124 +117,162 @@
             padding: 20px;
         }
         .hero h1 {
-            font-size: 3.5rem;
+            font-size: 4rem;
             margin-bottom: 20px;
-            line-height: 1.2;
-            animation: fadeIn 1.5s ease-out;
+            line-height: 1.1;
+            text-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            animation: fadeInUp 1s ease-out;
         }
         .hero p {
-            font-size: 1.3rem;
-            max-width: 700px;
-            margin-bottom: 30px;
+            font-size: 1.4rem;
+            max-width: 600px;
+            margin-bottom: 40px;
             font-weight: 300;
-            animation: fadeIn 2s ease-out;
+            animation: fadeInUp 1.2s ease-out;
         }
         .btn {
             background-color: var(--accent-gold);
             color: var(--white);
-            padding: 15px 35px;
+            padding: 16px 40px;
             text-decoration: none;
-            border-radius: 50px; /* Rounded pill shape */
+            border-radius: 50px;
             font-weight: bold;
             text-transform: uppercase;
             letter-spacing: 1px;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(197, 160, 89, 0.4);
+            box-shadow: 0 4px 20px rgba(197, 160, 89, 0.4);
+            animation: fadeInUp 1.4s ease-out;
         }
         .btn:hover {
-            background-color: #b08d4b;
-            transform: translateY(-3px); /* Moves up slightly on hover */
+            background-color: #e0b86a;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(197, 160, 89, 0.6);
         }
 
-        /* Sections */
+        /* --- SECTIONS GENERAL --- */
         section {
-            padding: 80px 20px;
+            padding: 100px 20px; /* More breathing room */
             max-width: 1200px;
             margin: auto;
         }
         .section-header {
             text-align: center;
-            margin-bottom: 60px;
+            margin-bottom: 70px;
         }
         .section-header h2 {
-            font-size: 2.5rem;
+            font-size: 2.8rem;
             color: var(--primary-dark);
             margin-bottom: 15px;
         }
         .section-header .divider {
             height: 3px;
-            width: 80px;
+            width: 60px;
             background-color: var(--accent-gold);
-            margin: auto;
+            margin: 0 auto 20px auto;
         }
         .section-header p {
             color: var(--text-grey);
-            margin-top: 15px;
+            font-size: 1.1rem;
         }
 
-        /* Stylish Grid */
+        /* --- GRID LAYOUT --- */
         .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
         }
 
-        /* Product Card Styles */
+        /* --- PRODUCT & IMAGE CARDS --- */
         .card {
             background: var(--white);
-            border-radius: 12px;
+            border-radius: 20px;
             overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.06);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Bouncy effect */
             position: relative;
         }
         .card:hover {
-            transform: translateY(-10px); /* Lifts up */
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            transform: translateY(-12px);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.15);
         }
         .card-img-holder {
-            height: 250px;
+            height: 280px;
             background-color: #e0e0e0;
             overflow: hidden;
+            position: relative;
         }
-        /* This is where your images go */
         .card-img-holder img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.5s ease;
+            transition: transform 0.6s ease;
         }
         .card:hover .card-img-holder img {
-            transform: scale(1.05); /* Zoom effect */
+            transform: scale(1.1); /* Slow zoom on hover */
         }
         .card-content {
-            padding: 25px;
+            padding: 30px;
             text-align: center;
         }
         .card h3 {
-            font-size: 1.5rem;
+            font-size: 1.6rem;
             color: var(--primary-dark);
             margin-bottom: 10px;
         }
         .card p {
             color: var(--text-grey);
-            font-size: 0.95rem;
+            font-size: 1rem;
         }
 
-        /* Location / Map Section */
+        /* --- CONTACT SECTION --- */
+        .contact-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 50px;
+            justify-content: center;
+            background: var(--white);
+            padding: 50px;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.05);
+        }
+        .contact-info-box {
+            flex: 1;
+            min-width: 300px;
+        }
+        .contact-item {
+            margin-bottom: 25px;
+        }
+        .contact-item strong {
+            display: block;
+            color: var(--accent-gold);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+            letter-spacing: 1px;
+        }
+        .contact-item span, .contact-item a {
+            font-size: 1.2rem;
+            color: var(--primary-dark);
+            text-decoration: none;
+            font-weight: 700;
+        }
+        
         .map-container {
+            flex: 1;
+            min-width: 300px;
+            height: 350px;
             border-radius: 15px;
             overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            border: 5px solid var(--white);
+            border: 1px solid #ddd;
         }
 
-        /* Footer */
+        /* --- FOOTER --- */
         .footer {
             background-color: var(--primary-dark);
             color: var(--white);
             padding: 60px 20px;
             text-align: center;
+            margin-top: 50px;
         }
         .footer-logo {
             font-family: 'Playfair Display', serif;
@@ -219,25 +281,47 @@
             display: inline-block;
             color: var(--accent-gold);
         }
+        .footer p {
+            color: #888;
+            font-size: 0.9rem;
+        }
 
-        /* Mobile Adjustments */
+        /* --- MOBILE RESPONSIVENESS --- */
         @media (max-width: 768px) {
             .nav-container {
                 flex-direction: column;
+                border-radius: 25px;
+                width: 85%;
+                padding: 15px;
             }
             nav ul {
-                margin-top: 20px;
-                gap: 15px;
+                margin-top: 15px;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 5px;
+            }
+            nav a {
+                font-size: 0.75rem;
+                padding: 8px 12px;
             }
             .hero h1 {
-                font-size: 2.2rem;
+                font-size: 2.5rem;
+            }
+            .contact-wrapper {
+                padding: 20px;
             }
         }
-        
-        /* Simple animation keyframes */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+
+        /* --- ANIMATIONS --- */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
     </style>
 </head>
@@ -245,13 +329,13 @@
 
     <header>
         <div class="nav-container">
-            <div class="logo">Your Choice Tiles & Sanitaries</div>
+            <a href="#" class="logo">Your Choice Tiles & Sanitaries</a>
             <nav>
                 <ul>
                     <li><a href="#home">Home</a></li>
                     <li><a href="#products">Collection</a></li>
                     <li><a href="#showroom">Showroom</a></li>
-                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="#contact">Visit Us</a></li>
                 </ul>
             </nav>
         </div>
@@ -259,15 +343,15 @@
 
     <div id="home" class="hero">
         <h1>Elegance for Every Corner</h1>
-        <p>Discover the finest selection of premium tiles, sanitaryware, and bath fittings designed to transform your home.</p>
-        <a href="#showroom" class="btn">View Showroom</a>
+        <p>Premium Tiles, Modern Sanitaryware, and Designer Fittings.</p>
+        <a href="#showroom" class="btn">Explore Showroom</a>
     </div>
 
     <section id="products">
         <div class="section-header">
-            <h2>Our Premium Collection</h2>
+            <h2>Our Collections</h2>
             <div class="divider"></div>
-            <p>Curated designs for modern living.</p>
+            <p>Handpicked designs for the modern home.</p>
         </div>
         
         <div class="grid">
@@ -276,8 +360,8 @@
                     <img src="https://images.unsplash.com/photo-1599619351208-3e6c839d6828?auto=format&fit=crop&w=500&q=60" alt="Floor Tiles">
                 </div>
                 <div class="card-content">
-                    <h3>Luxury Tiles</h3>
-                    <p>Vitrified, Ceramic, and Porcelain tiles that define durability and style.</p>
+                    <h3>Premium Tiles</h3>
+                    <p>Vitrified, Ceramic, and Porcelain tiles in exquisite finishes.</p>
                 </div>
             </div>
 
@@ -286,18 +370,18 @@
                     <img src="https://images.unsplash.com/photo-1584622050111-993a426fbf0a?auto=format&fit=crop&w=500&q=60" alt="Sanitaryware">
                 </div>
                 <div class="card-content">
-                    <h3>Modern Sanitary</h3>
-                    <p>Sleek commodes and basins that blend functionality with art.</p>
+                    <h3>Sanitaryware</h3>
+                    <p>Italian-design commodes and artistic washbasins.</p>
                 </div>
             </div>
 
             <div class="card">
                 <div class="card-img-holder">
-                    <img src="https://images.unsplash.com/photo-1616486029423-aaa478965c96?auto=format&fit=crop&w=500&q=60" alt="Faucets">
+                    <img src="https://images.unsplash.com/photo-1616486029423-aaa478965c96?auto=format&fit=crop&w=500&q=60" alt="Bath Fittings">
                 </div>
                 <div class="card-content">
-                    <h3>Designer Fittings</h3>
-                    <p>Chrome, Gold, and Matte Black finishes to accessorize your bath.</p>
+                    <h3>Bath Fittings</h3>
+                    <p>Luxury faucets and shower systems in Chrome and Gold.</p>
                 </div>
             </div>
         </div>
@@ -305,9 +389,9 @@
 
     <section id="showroom" style="background-color: var(--light-bg);">
         <div class="section-header">
-            <h2>Visit Our Showroom</h2>
+            <h2>Inside Our Showroom</h2>
             <div class="divider"></div>
-            <p>Experience the quality and texture in person.</p>
+            <p>Walk through our gallery of inspiration.</p>
         </div>
         <div class="grid">
             <div class="card">
@@ -330,32 +414,29 @@
 
     <section id="contact">
         <div class="section-header">
-            <h2>Find Us</h2>
+            <h2>Visit Us</h2>
             <div class="divider"></div>
         </div>
         
-        <div style="display:flex; flex-wrap:wrap; gap:40px; justify-content:center;">
-            
-            <div style="flex: 1; min-width: 300px; max-width: 400px;">
-                <h3 style="margin-bottom:20px; color:var(--accent-gold);">Contact Info</h3>
-                <p style="font-size:1.1rem; margin-bottom:10px;">
-                    <strong>Your Choice Tiles & Sanitaries</strong><br>
-                    123 Main Street, Near City Center<br>
-                    Your City, State - 123456
-                </p>
-                <p style="font-size:1.1rem; margin-bottom:10px;">
-                    📞 <a href="tel:+919876543210" style="color:var(--primary-dark); text-decoration:none;"><b>+91 98765 43210</b></a>
-                </p>
-                <p style="font-size:1.1rem;">
-                    ⏰ <b>Mon - Sat:</b> 9:00 AM - 8:00 PM<br>
-                    (Sunday Closed)
-                </p>
-                <a href="#" class="btn" style="display:inline-block; margin-top:20px;">Get Directions</a>
+        <div class="contact-wrapper">
+            <div class="contact-info-box">
+                <div class="contact-item">
+                    <strong>Address</strong>
+                    <span>Your Choice Tiles & Sanitaries<br>123 Main Street, City Name</span>
+                </div>
+                <div class="contact-item">
+                    <strong>Phone</strong>
+                    <a href="tel:+919876543210">+91 98765 43210</a>
+                </div>
+                <div class="contact-item">
+                    <strong>Opening Hours</strong>
+                    <span>Mon - Sat: 9:00 AM - 8:30 PM<br>Sunday: Closed</span>
+                </div>
             </div>
 
-            <div class="map-container" style="flex: 1; min-width: 300px; max-width: 500px; height: 300px; background: #eee;">
+            <div class="map-container">
                 <iframe 
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3502.260025798999!2d77.2272850756285!3d28.613939175674966!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390ce2db961be393%3A0xf6c24c9606916891!2sIndia%20Gate!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin" 
+                    src="https://maps.google.com/maps?q=new+delhi&t=&z=13&ie=UTF8&iwloc=&output=embed" 
                     width="100%" 
                     height="100%" 
                     style="border:0;" 
