@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Choice Tiles & Sanitaries</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- PREMIUM CSS STYLES --- */
+        :root {
+            --primary-dark: #1a1a1a;
+            --secondary-dark: #2c2c2c;
+            --accent-gold: #c5a059;
+            --light-bg: #f9f9f9;
+            --text-grey: #666;
+            --white: #ffffff;
+        }
+
+        body {
+            font-family: 'Lato', sans-serif;
+            margin: 0;
+            padding: 0;
+            color: var(--secondary-dark);
+            background-color: var(--white);
+            line-height: 1.6;
+        }
+
+        /* Typography */
+        h1, h2, h3 {
+            font-family: 'Playfair Display', serif; /* Elegant font for headings */
+            margin: 0;
+        }
+
+        /* Navigation */
+        header {
+            background-color: var(--white);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: auto;
+            padding: 15px 20px;
+        }
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            border: 2px solid var(--primary-dark);
+            padding: 5px 15px;
+        }
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 30px;
+            margin: 0;
+            padding: 0;
+        }
+        nav a {
+            color: var(--primary-dark);
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: color 0.3s;
+        }
+        nav a:hover {
+            color: var(--accent-gold);
+        }
+
+        /* Hero Section - Stylish Banner */
+        .hero {
+            /* Gradient acts as a placeholder for your background image */
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1600607686527-6fb886090705?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            height: 85vh; /* Takes up 85% of screen height */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: var(--white);
+            padding: 20px;
+        }
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            line-height: 1.2;
+            animation: fadeIn 1.5s ease-out;
+        }
+        .hero p {
+            font-size: 1.3rem;
+            max-width: 700px;
+            margin-bottom: 30px;
+            font-weight: 300;
+            animation: fadeIn 2s ease-out;
+        }
+        .btn {
+            background-color: var(--accent-gold);
+            color: var(--white);
+            padding: 15px 35px;
+            text-decoration: none;
+            border-radius: 50px; /* Rounded pill shape */
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(197, 160, 89, 0.4);
+        }
+        .btn:hover {
+            background-color: #b08d4b;
+            transform: translateY(-3px); /* Moves up slightly on hover */
+        }
+
+        /* Sections */
+        section {
+            padding: 80px 20px;
+            max-width: 1200px;
+            margin: auto;
+        }
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        .section-header h2 {
+            font-size: 2.5rem;
+            color: var(--primary-dark);
+            margin-bottom: 15px;
+        }
+        .section-header .divider {
+            height: 3px;
+            width: 80px;
+            background-color: var(--accent-gold);
+            margin: auto;
+        }
+        .section-header p {
+            color: var(--text-grey);
+            margin-top: 15px;
+        }
+
+        /* Stylish Grid */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+        }
+
+        /* Product Card Styles */
+        .card {
+            background: var(--white);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+        }
+        .card:hover {
+            transform: translateY(-10px); /* Lifts up */
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        .card-img-holder {
+            height: 250px;
+            background-color: #e0e0e0;
+            overflow: hidden;
+        }
+        /* This is where your images go */
+        .card-img-holder img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        .card:hover .card-img-holder img {
+            transform: scale(1.05); /* Zoom effect */
+        }
+        .card-content {
+            padding: 25px;
+            text-align: center;
+        }
+        .card h3 {
+            font-size: 1.5rem;
+            color: var(--primary-dark);
+            margin-bottom: 10px;
+        }
+        .card p {
+            color: var(--text-grey);
+            font-size: 0.95rem;
+        }
+
+        /* Location / Map Section */
+        .map-container {
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border: 5px solid var(--white);
+        }
+
+        /* Footer */
+        .footer {
+            background-color: var(--primary-dark);
+            color: var(--white);
+            padding: 60px 20px;
+            text-align: center;
+        }
+        .footer-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            margin-bottom: 20px;
+            display: inline-block;
+            color: var(--accent-gold);
+        }
+
+        /* Mobile Adjustments */
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+            }
+            nav ul {
+                margin-top: 20px;
+                gap: 15px;
+            }
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+        }
+        
+        /* Simple animation keyframes */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="nav-container">
+            <div class="logo">Your Choice</div>
+            <nav>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#products">Collection</a></li>
+                    <li><a href="#showroom">Showroom</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div id="home" class="hero">
+        <h1>Elegance for Every Corner</h1>
+        <p>Discover the finest selection of premium tiles, sanitaryware, and bath fittings designed to transform your home.</p>
+        <a href="#showroom" class="btn">View Showroom</a>
+    </div>
+
+    <section id="products">
+        <div class="section-header">
+            <h2>Our Premium Collection</h2>
+            <div class="divider"></div>
+            <p>Curated designs for modern living.</p>
+        </div>
+        
+        <div class="grid">
+            <div class="card">
+                <div class="card-img-holder">
+                    <img src="https://images.unsplash.com/photo-1599619351208-3e6c839d6828?auto=format&fit=crop&w=500&q=60" alt="Floor Tiles">
+                </div>
+                <div class="card-content">
+                    <h3>Luxury Tiles</h3>
+                    <p>Vitrified, Ceramic, and Porcelain tiles that define durability and style.</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-img-holder">
+                    <img src="https://images.unsplash.com/photo-1584622050111-993a426fbf0a?auto=format&fit=crop&w=500&q=60" alt="Sanitaryware">
+                </div>
+                <div class="card-content">
+                    <h3>Modern Sanitary</h3>
+                    <p>Sleek commodes and basins that blend functionality with art.</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-img-holder">
+                    <img src="https://images.unsplash.com/photo-1616486029423-aaa478965c96?auto=format&fit=crop&w=500&q=60" alt="Faucets">
+                </div>
+                <div class="card-content">
+                    <h3>Designer Fittings</h3>
+                    <p>Chrome, Gold, and Matte Black finishes to accessorize your bath.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="showroom" style="background-color: var(--light-bg);">
+        <div class="section-header">
+            <h2>Visit Our Showroom</h2>
+            <div class="divider"></div>
+            <p>Experience the quality and texture in person.</p>
+        </div>
+        <div class="grid">
+            <div class="card">
+                <div class="card-img-holder">
+                    <img src="https://images.unsplash.com/photo-1620626011761-996317b8d101?auto=format&fit=crop&w=500&q=60" alt="Showroom View">
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-img-holder">
+                    <img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=500&q=60" alt="Display Area">
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-img-holder">
+                    <img src="https://images.unsplash.com/photo-1585412727339-54e4bae3bbf9?auto=format&fit=crop&w=500&q=60" alt="Interiors">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <div class="section-header">
+            <h2>Find Us</h2>
+            <div class="divider"></div>
+        </div>
+        
+        <div style="display:flex; flex-wrap:wrap; gap:40px; justify-content:center;">
+            
+            <div style="flex: 1; min-width: 300px; max-width: 400px;">
+                <h3 style="margin-bottom:20px; color:var(--accent-gold);">Contact Info</h3>
+                <p style="font-size:1.1rem; margin-bottom:10px;">
+                    <strong>Your Choice Tiles & Sanitaries</strong><br>
+                    123 Main Street, Near City Center<br>
+                    Your City, State - 123456
+                </p>
+                <p style="font-size:1.1rem; margin-bottom:10px;">
+                    📞 <a href="tel:+919876543210" style="color:var(--primary-dark); text-decoration:none;"><b>+91 98765 43210</b></a>
+                </p>
+                <p style="font-size:1.1rem;">
+                    ⏰ <b>Mon - Sat:</b> 9:00 AM - 8:00 PM<br>
+                    (Sunday Closed)
+                </p>
+                <a href="#" class="btn" style="display:inline-block; margin-top:20px;">Get Directions</a>
+            </div>
+
+            <div class="map-container" style="flex: 1; min-width: 300px; max-width: 500px; height: 300px; background: #eee;">
+                <iframe 
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3502.260025798999!2d77.2272850756285!3d28.613939175674966!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390ce2db961be393%3A0xf6c24c9606916891!2sIndia%20Gate!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin" 
+                    width="100%" 
+                    height="100%" 
+                    style="border:0;" 
+                    allowfullscreen="" 
+                    loading="lazy">
+                </iframe>
+            </div>
+        </div>
+    </section>
+
+    <div class="footer">
+        <div class="footer-logo">Your Choice</div>
+        <p>&copy; 2024 Your Choice Tiles and Sanitaries. All Rights Reserved.</p>
+    </div>
+
+</body>
+</html>
