@@ -91,69 +91,52 @@
         .split-img img { width: 100%; height: 100%; object-fit: cover; }
         .split-content { padding: 60px; }
 
-        /* --- STYLISH MAP SECTION (NEW) --- */
+        /* --- CINEMATIC MAP SECTION --- */
         .cinematic-map {
             position: relative;
             width: 100%;
-            height: 600px; /* Tall and impressive */
+            height: 600px;
             overflow: hidden;
             display: flex;
             align-items: center;
             justify-content: center;
             background: #000;
         }
-
-        /* 1. The Map Background */
-        .map-bg {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            opacity: 0.6; /* Dim the map so text pops */
-            pointer-events: none; /* Let clicks pass through if needed, or remove to make interactive */
+        
+        /* This div holds the IFRAME map */
+        .map-bg { 
+            position: absolute; 
+            top: 0; left: 0; width: 100%; height: 100%; 
+            opacity: 0.6; 
+            pointer-events: none; 
         }
-
-        .map-bg iframe {
-            width: 100%; height: 100%; border: none;
-            /* This filter turns the Google Map into 'Dark Mode' Colors */
-            filter: grayscale(100%) invert(92%) contrast(83%);
+        
+        .map-bg iframe { 
+            width: 100%; height: 100%; border: none; 
+            /* This filter makes the map dark/grayscale to match the site */
+            filter: grayscale(100%) invert(92%) contrast(83%); 
         }
-
-        /* 2. Fade Edges (Vignette) */
-        .map-vignette {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle, transparent 40%, var(--bg-dark) 100%);
-            pointer-events: none;
+        
+        .map-vignette { 
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%; 
+            background: radial-gradient(circle, transparent 40%, var(--bg-dark) 100%); 
+            pointer-events: none; 
         }
-
-        /* 3. The Floating Card */
+        
         .location-card {
-            position: relative;
-            z-index: 2;
-            background: rgba(15, 17, 21, 0.85);
-            backdrop-filter: blur(15px); /* Glass effect */
-            padding: 50px;
-            text-align: center;
-            border: 1px solid rgba(212, 175, 55, 0.3); /* Subtle Gold Border */
-            max-width: 400px;
+            position: relative; z-index: 2; 
+            background: rgba(15, 17, 21, 0.85); 
+            backdrop-filter: blur(15px); 
+            padding: 50px; text-align: center; 
+            border: 1px solid rgba(212, 175, 55, 0.3); 
+            max-width: 400px; 
             box-shadow: 0 20px 50px rgba(0,0,0,0.5);
         }
-
         .location-card h2 { font-size: 2.5rem; color: white; margin-bottom: 10px; }
         .location-card .sub-text { color: var(--gold); text-transform: uppercase; letter-spacing: 3px; font-size: 0.8rem; margin-bottom: 30px; display: block; }
-        
         .info-row { margin: 15px 0; color: #ccc; display: flex; align-items: center; justify-content: center; gap: 10px; }
         .info-row i { color: var(--gold); }
-
-        .map-btn {
-            margin-top: 25px;
-            display: inline-block;
-            padding: 12px 30px;
-            background: var(--gold);
-            color: #000;
-            font-weight: bold;
-            text-decoration: none;
-            transition: 0.3s;
-        }
+        .map-btn { margin-top: 25px; display: inline-block; padding: 12px 30px; background: var(--gold); color: #000; font-weight: bold; text-decoration: none; transition: 0.3s; }
         .map-btn:hover { background: white; }
 
         /* --- CONTACT FORM --- */
@@ -162,11 +145,27 @@
             background-size: cover; background-position: center;
         }
         .glass-form {
-            background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(10px); padding: 40px;
-            border: 1px solid rgba(255,255,255,0.1); max-width: 500px; margin: 0 auto;
+            background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(10px); padding: 40px; border: 1px solid rgba(255,255,255,0.1); max-width: 500px; margin: 0 auto;
         }
         .form-control { width: 100%; background: transparent; border: none; border-bottom: 1px solid #555; padding: 15px 0; color: white; margin-bottom: 20px; outline: none; }
         .submit-btn { width: 100%; padding: 15px; background: var(--gold); border: none; font-weight: bold; cursor: pointer; }
+
+        /* --- STYLISH FOOTER --- */
+        footer {
+            background: #050608; padding-top: 80px; border-top: 1px solid rgba(212, 175, 55, 0.2);
+        }
+        .footer-content {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; max-width: 1200px; margin: 0 auto; padding: 0 20px 60px 20px;
+        }
+        .footer-col h3 { color: var(--gold); margin-bottom: 25px; font-size: 1.5rem; }
+        .footer-col p { color: #888; margin-bottom: 15px; font-size: 0.9rem; line-height: 1.6; }
+        .footer-links li { list-style: none; margin-bottom: 12px; }
+        .footer-links a { text-decoration: none; color: #ccc; font-size: 0.9rem; transition: 0.3s; }
+        .footer-links a:hover { color: var(--gold); padding-left: 5px; }
+        .social-icons { display: flex; gap: 15px; margin-top: 20px; }
+        .social-icons a { width: 40px; height: 40px; border: 1px solid #333; display: flex; align-items: center; justify-content: center; border-radius: 50%; color: white; transition: 0.3s; }
+        .social-icons a:hover { background: var(--gold); border-color: var(--gold); color: black; }
+        .copyright-bar { text-align: center; padding: 20px; border-top: 1px solid #1a1a1a; color: #555; font-size: 0.8rem; }
 
         /* --- RESPONSIVE --- */
         @media (max-width: 768px) {
@@ -181,10 +180,10 @@
             .split-img, .split-content { width: 100%; }
             .split-img { height: 300px; }
             .split-content { padding: 40px 20px; }
-            
-            /* Map Mobile */
             .location-card { width: 90%; padding: 30px; }
             .cinematic-map { height: 500px; }
+            .footer-content { text-align: center; }
+            .social-icons { justify-content: center; }
         }
     </style>
 </head>
@@ -234,26 +233,19 @@
 
     <section class="cinematic-map">
         <div class="map-bg">
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3902.977464766856!2d75.2415!3d12.0494!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTLCsDAyJzU3LjgiTiA3NcKwMTQnMjkuNCJF!5e0!3m2!1sen!2sin!4v1600000000000!5m2!1sen!2sin" allowfullscreen="" loading="lazy"></iframe>
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15606.594751430037!2d75.2443075!3d12.0683075!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ba46d299499703f%3A0x6280436d41a7d189!2sYour%20Choice%20Tiles%20%26%20Sanitaries!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin" 
+            allowfullscreen="" loading="lazy"></iframe>
         </div>
-
+        
         <div class="map-vignette"></div>
-
+        
         <div class="location-card">
             <span class="sub-text">Our Location</span>
             <h2>Pilathara, Kannur</h2>
-            
-            <div class="info-row">
-                <i class="fas fa-map-marker-alt"></i>
-                <span>Opp. Civil Station, Main Road</span>
-            </div>
-            <div class="info-row">
-                <i class="fas fa-phone-alt"></i>
-                <span>+91 98765 43210</span>
-            </div>
-            
+            <div class="info-row"><i class="fas fa-map-marker-alt"></i><span>Opp. Civil Station, Main Road</span></div>
+            <div class="info-row"><i class="fas fa-phone-alt"></i><span>+91 98765 43210</span></div>
             <br>
-            <a href="https://goo.gl/maps/your-link" target="_blank" class="map-btn">Get Directions</a>
+            <a href="#" class="map-btn">Get Directions</a>
         </div>
     </section>
 
@@ -268,8 +260,49 @@
         </div>
     </section>
 
-    <footer style="text-align: center; padding: 40px; font-size: 0.8rem; opacity: 0.6;">
-        © 2025 Your Choice Tiles.
+    <footer>
+        <div class="footer-content">
+            <div class="footer-col">
+                <h3>YOUR CHOICE</h3>
+                <p>Redefining luxury living with premium imported tiles and sanitary ware in Kerala.</p>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-whatsapp"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                </div>
+            </div>
+
+            <div class="footer-col">
+                <h3>Explore</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Our Collections</a></li>
+                    <li><a href="#">Showroom</a></li>
+                    <li><a href="#">Virtual Tour</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h3>Products</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Ceramic Tiles</a></li>
+                    <li><a href="#">Sanitary Ware</a></li>
+                    <li><a href="#">Granite & Marble</a></li>
+                    <li><a href="#">Wall Cladding</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h3>Visit Us</h3>
+                <p>Main Road, Pilathara<br>Kannur, Kerala - 670501</p>
+                <p style="color: var(--gold); font-weight: bold;">+91 98765 43210</p>
+                <p>info@yourchoice.com</p>
+            </div>
+        </div>
+
+        <div class="copyright-bar">
+            <p>© 2025 Your Choice Tiles & Sanitaries. All Rights Reserved.</p>
+        </div>
     </footer>
 
     <script>
