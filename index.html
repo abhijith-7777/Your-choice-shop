@@ -3,454 +3,391 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Choice Tiles & Sanitaries</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <title>Your Choice | Premium Surfaces</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
     <style>
-        /* --- GLOBAL VARIABLES & THEME --- */
+        /* --- VARIABLES & RESET --- */
         :root {
-            --primary-dark: #1a1a1a;    /* Dark Charcoal */
-            --secondary-dark: #2c2c2c;  /* Soft Black */
-            --accent-gold: #c5a059;     /* Premium Gold */
-            --light-bg: #f5f5f7;        /* Light Grey (Apple style) */
-            --text-grey: #666;
-            --white: #ffffff;
+            --bg-dark: #0f1115;
+            --bg-card: #1c1f26;
+            --gold: #d4af37;
+            --gold-light: #f3e5ab;
+            --text-main: #ffffff;
+            --text-muted: #a0a0a0;
         }
 
-        html {
-            scroll-behavior: smooth;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            font-family: 'Lato', sans-serif;
-            margin: 0;
-            padding: 0;
-            color: var(--secondary-dark);
-            background-color: var(--white);
-            line-height: 1.6;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            font-family: 'Montserrat', sans-serif;
+            overflow-x: hidden;
         }
 
-        /* Typography */
-        h1, h2, h3 {
-            font-family: 'Playfair Display', serif;
-            margin: 0;
-        }
-
-        /* --- OPTION 2: FLOATING GLASS NAVIGATION --- */
-        header {
-            background: transparent;
-            padding: 20px 0;
-            position: fixed; /* Floats over content */
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            pointer-events: none; /* Allows clicking through the empty sides */
-        }
+        h1, h2, h3, h4 { font-family: 'Cormorant Garamond', serif; font-weight: 600; }
         
-        .nav-container {
-            pointer-events: auto; /* Re-enable clicks for the bar itself */
+        /* Smooth Scroll Behavior */
+        html { scroll-behavior: smooth; }
+
+        /* --- UTILITIES --- */
+        .gold-text { color: var(--gold); }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        
+        /* Reveal on Scroll Animation Class */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 1s ease;
+        }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        /* --- NAVIGATION --- */
+        nav {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            max-width: 900px; /* Compact width for "Floating" look */
-            margin: auto;
-            padding: 12px 30px;
-            
-            /* The Glass Effect */
-            background: rgba(255, 255, 255, 0.85); /* Semi-transparent white */
-            backdrop-filter: blur(12px); /* Blurs the background behind it */
-            -webkit-backdrop-filter: blur(12px); /* Safari support */
-            border-radius: 50px; /* Fully rounded pill shape */
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1); /* Soft floating shadow */
-            border: 1px solid rgba(255,255,255,0.5);
+            padding: 25px 50px;
+            position: absolute;
+            width: 100%;
+            z-index: 10;
         }
-        
-        .logo {
-            font-size: 1.3rem;
-            font-weight: 800;
-            color: var(--primary-dark);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            text-decoration: none;
-        }
+        .logo { font-size: 1.8rem; letter-spacing: 2px; text-transform: uppercase; }
+        .logo span { font-weight: 300; font-size: 1rem; color: var(--gold); display: block; letter-spacing: 5px;}
 
-        nav ul {
-            list-style: none;
-            display: flex;
-            gap: 10px;
-            margin: 0;
-            padding: 0;
-        }
-        
-        nav a {
-            color: var(--secondary-dark);
-            text-decoration: none;
-            font-weight: 700;
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            padding: 10px 20px;
+        .nav-btn {
+            background: transparent;
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            padding: 10px 25px;
             border-radius: 30px;
-            transition: all 0.3s ease;
+            cursor: pointer;
+            transition: 0.3s;
         }
-        
-        /* Nav Link Hover Animation */
-        nav a:hover {
-            background-color: var(--primary-dark);
-            color: var(--accent-gold);
-            transform: translateY(-2px);
-        }
+        .nav-btn:hover { background: var(--gold); color: var(--bg-dark); }
 
-        /* --- HERO SECTION --- */
+        /* --- HERO SECTION (Parallax) --- */
         .hero {
-            /* Background image setup */
-            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.4)), url('https://images.unsplash.com/photo-1600607686527-6fb886090705?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80');
+            height: 100vh;
+            background: linear-gradient(to right, rgba(15, 17, 21, 0.9), rgba(15, 17, 21, 0.4)), url('https://images.unsplash.com/photo-1620626011761-996317b8d101?q=80&w=1920&auto=format&fit=crop');
             background-size: cover;
+            background-attachment: fixed; /* Parallax Magic */
             background-position: center;
-            height: 100vh; /* Full screen height */
             display: flex;
-            flex-direction: column;
-            justify-content: center;
             align-items: center;
-            text-align: center;
-            color: var(--white);
-            padding: 20px;
+            position: relative;
         }
-        .hero h1 {
-            font-size: 4rem;
-            margin-bottom: 20px;
-            line-height: 1.1;
-            text-shadow: 0 4px 10px rgba(0,0,0,0.3);
-            animation: fadeInUp 1s ease-out;
-        }
-        .hero p {
-            font-size: 1.4rem;
+
+        .hero-content {
+            margin-left: 10%;
             max-width: 600px;
+        }
+
+        .hero h1 {
+            font-size: 5rem;
+            line-height: 1;
+            margin-bottom: 20px;
+            background: linear-gradient(to right, #fff, #999);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--text-muted);
             margin-bottom: 40px;
-            font-weight: 300;
-            animation: fadeInUp 1.2s ease-out;
-        }
-        .btn {
-            background-color: var(--accent-gold);
-            color: var(--white);
-            padding: 16px 40px;
-            text-decoration: none;
-            border-radius: 50px;
-            font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 20px rgba(197, 160, 89, 0.4);
-            animation: fadeInUp 1.4s ease-out;
-        }
-        .btn:hover {
-            background-color: #e0b86a;
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(197, 160, 89, 0.6);
+            border-left: 3px solid var(--gold);
+            padding-left: 20px;
         }
 
-        /* --- SECTIONS GENERAL --- */
-        section {
-            padding: 100px 20px; /* More breathing room */
-            max-width: 1200px;
-            margin: auto;
+        /* --- STATS BAR (Floating Glass) --- */
+        .stats-bar {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            padding: 40px 60px;
+            display: flex;
+            gap: 60px;
+            border-top-left-radius: 20px;
         }
-        .section-header {
-            text-align: center;
-            margin-bottom: 70px;
-        }
-        .section-header h2 {
-            font-size: 2.8rem;
-            color: var(--primary-dark);
-            margin-bottom: 15px;
-        }
-        .section-header .divider {
-            height: 3px;
-            width: 60px;
-            background-color: var(--accent-gold);
-            margin: 0 auto 20px auto;
-        }
-        .section-header p {
-            color: var(--text-grey);
-            font-size: 1.1rem;
-        }
+        .stat h3 { font-size: 2.5rem; color: var(--gold); margin-bottom: 5px; }
+        .stat p { font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; }
 
-        /* --- GRID LAYOUT --- */
-        .grid {
+        /* --- CATEGORIES (Asymmetrical Grid) --- */
+        .section { padding: 100px 0; }
+        .section-header { text-align: center; margin-bottom: 80px; }
+        .section-header h2 { font-size: 3rem; margin-bottom: 15px; }
+        .section-header p { color: var(--gold); letter-spacing: 3px; text-transform: uppercase; font-size: 0.8rem; }
+
+        .bento-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 40px;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(2, 300px);
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
-        /* --- PRODUCT & IMAGE CARDS --- */
-        .card {
-            background: var(--white);
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.06);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Bouncy effect */
+        .bento-item {
             position: relative;
-        }
-        .card:hover {
-            transform: translateY(-12px);
-            box-shadow: 0 25px 50px rgba(0,0,0,0.15);
-        }
-        .card-img-holder {
-            height: 280px;
-            background-color: #e0e0e0;
             overflow: hidden;
-            position: relative;
+            border-radius: 4px;
+            cursor: pointer;
         }
-        .card-img-holder img {
+
+        /* Making the grid interesting */
+        .bento-item:nth-child(1) { grid-column: span 2; } /* Large item */
+        .bento-item:nth-child(2) { grid-row: span 2; }    /* Tall item */
+
+        .bento-item img {
             width: 100%;
             height: 100%;
             object-fit: cover;
             transition: transform 0.6s ease;
-        }
-        .card:hover .card-img-holder img {
-            transform: scale(1.1); /* Slow zoom on hover */
-        }
-        .card-content {
-            padding: 30px;
-            text-align: center;
-        }
-        .card h3 {
-            font-size: 1.6rem;
-            color: var(--primary-dark);
-            margin-bottom: 10px;
-        }
-        .card p {
-            color: var(--text-grey);
-            font-size: 1rem;
+            filter: grayscale(30%);
         }
 
-        /* --- CONTACT SECTION --- */
-        .contact-wrapper {
+        .bento-item:hover img { transform: scale(1.1); filter: grayscale(0%); }
+
+        .bento-overlay {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            background: rgba(0,0,0,0.7);
+            padding: 10px 20px;
+            border-left: 2px solid var(--gold);
+        }
+
+        /* --- FEATURED PRODUCT (Split Layout) --- */
+        .split-section {
             display: flex;
-            flex-wrap: wrap;
-            gap: 50px;
-            justify-content: center;
-            background: var(--white);
-            padding: 50px;
-            border-radius: 20px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.05);
+            align-items: center;
+            background: var(--bg-card);
+            margin: 50px 0;
         }
-        .contact-info-box {
-            flex: 1;
-            min-width: 300px;
-        }
-        .contact-item {
-            margin-bottom: 25px;
-        }
-        .contact-item strong {
-            display: block;
-            color: var(--accent-gold);
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            margin-bottom: 5px;
-            letter-spacing: 1px;
-        }
-        .contact-item span, .contact-item a {
-            font-size: 1.2rem;
-            color: var(--primary-dark);
-            text-decoration: none;
-            font-weight: 700;
+        .split-img { width: 50%; height: 600px; }
+        .split-img img { width: 100%; height: 100%; object-fit: cover; }
+        
+        .split-content { 
+            width: 50%; 
+            padding: 80px; 
+            position: relative;
         }
         
-        .map-container {
-            flex: 1;
-            min-width: 300px;
-            height: 350px;
-            border-radius: 15px;
-            overflow: hidden;
-            border: 1px solid #ddd;
+        .feature-list li {
+            list-style: none;
+            margin-bottom: 15px;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
         }
+        .feature-list li i { color: var(--gold); margin-right: 15px; }
+
+        /* --- CONTACT (Glassmorphism) --- */
+        .contact-wrap {
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?q=80&w=1920&auto=format&fit=crop');
+            background-size: cover;
+            padding: 100px 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        .glass-form {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(15px);
+            padding: 50px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            width: 100%;
+            max-width: 500px;
+            border-radius: 10px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.3);
+        }
+
+        .form-group { margin-bottom: 20px; }
+        .form-control {
+            width: 100%;
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid rgba(255,255,255,0.3);
+            padding: 15px 0;
+            color: white;
+            font-size: 1rem;
+            outline: none;
+            transition: 0.3s;
+        }
+        .form-control:focus { border-bottom-color: var(--gold); }
+        
+        .submit-btn {
+            width: 100%;
+            padding: 15px;
+            background: var(--gold);
+            color: black;
+            font-weight: bold;
+            border: none;
+            margin-top: 20px;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: 0.3s;
+        }
+        .submit-btn:hover { background: #fff; }
 
         /* --- FOOTER --- */
-        .footer {
-            background-color: var(--primary-dark);
-            color: var(--white);
-            padding: 60px 20px;
+        footer {
+            padding: 50px 0;
             text-align: center;
-            margin-top: 50px;
-        }
-        .footer-logo {
-            font-family: 'Playfair Display', serif;
-            font-size: 2rem;
-            margin-bottom: 20px;
-            display: inline-block;
-            color: var(--accent-gold);
-        }
-        .footer p {
-            color: #888;
+            border-top: 1px solid rgba(255,255,255,0.05);
             font-size: 0.9rem;
+            color: var(--text-muted);
         }
 
-        /* --- MOBILE RESPONSIVENESS --- */
+        /* Mobile Adjustments */
         @media (max-width: 768px) {
-            .nav-container {
-                flex-direction: column;
-                border-radius: 25px;
-                width: 85%;
-                padding: 15px;
-            }
-            nav ul {
-                margin-top: 15px;
-                flex-wrap: wrap;
-                justify-content: center;
-                gap: 5px;
-            }
-            nav a {
-                font-size: 0.75rem;
-                padding: 8px 12px;
-            }
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-            .contact-wrapper {
-                padding: 20px;
-            }
-        }
-
-        /* --- ANIMATIONS --- */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            .hero h1 { font-size: 3rem; }
+            .bento-grid { display: block; }
+            .bento-item { height: 250px; margin-bottom: 15px; }
+            .stats-bar { position: relative; width: 100%; border-radius: 0; justify-content: space-around; }
+            .split-section { flex-direction: column; }
+            .split-img, .split-content { width: 100%; }
         }
     </style>
 </head>
 <body>
 
-    <header>
-        <div class="nav-container">
-            <a href="#" class="logo">Your Choice Tiles & Sanitaries</a>
-            <nav>
-                <ul>
-                    <li><a href="#home">Home</a></li>
-                    <li><a href="#products">Collection</a></li>
-                    <li><a href="#showroom">Showroom</a></li>
-                    <li><a href="#contact">Visit Us</a></li>
-                </ul>
-            </nav>
+    <nav>
+        <div class="logo">
+            Your Choice
+            <span>Tiles & Sanitaries</span>
         </div>
-    </header>
+        <button class="nav-btn">Get Quote</button>
+    </nav>
 
-    <div id="home" class="hero">
-        <h1>Elegance for Every Corner</h1>
-        <p>Premium Tiles, Modern Sanitaryware, and Designer Fittings.</p>
-        <a href="#showroom" class="btn">Explore Showroom</a>
-    </div>
-
-    <section id="products">
-        <div class="section-header">
-            <h2>Our Collections</h2>
-            <div class="divider"></div>
-            <p>Handpicked designs for the modern home.</p>
+    <section class="hero">
+        <div class="hero-content reveal">
+            <h1>Artistry <br>Beneath Your Feet.</h1>
+            <p>Discover the finest collection of imported ceramics, marble, and sanitary ware tailored for luxury living.</p>
         </div>
         
-        <div class="grid">
-            <div class="card">
-                <div class="card-img-holder">
-                    <img src="https://images.unsplash.com/photo-1599619351208-3e6c839d6828?auto=format&fit=crop&w=500&q=60" alt="Floor Tiles">
-                </div>
-                <div class="card-content">
-                    <h3>Premium Tiles</h3>
-                    <p>Vitrified, Ceramic, and Porcelain tiles in exquisite finishes.</p>
-                </div>
+        <div class="stats-bar reveal">
+            <div class="stat">
+                <h3>15+</h3>
+                <p>Years Experience</p>
+            </div>
+            <div class="stat">
+                <h3>5k+</h3>
+                <p>Projects Done</p>
+            </div>
+            <div class="stat">
+                <h3>500+</h3>
+                <p>Premium Designs</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <div class="section-header reveal">
+                <p>The Collection</p>
+                <h2>Curated Perfection</h2>
             </div>
 
-            <div class="card">
-                <div class="card-img-holder">
-                    <img src="https://images.unsplash.com/photo-1584622050111-993a426fbf0a?auto=format&fit=crop&w=500&q=60" alt="Sanitaryware">
+            <div class="bento-grid">
+                <div class="bento-item reveal">
+                    <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=800&auto=format&fit=crop" alt="Living Room Tiles">
+                    <div class="bento-overlay">
+                        <h3>Italian Marble</h3>
+                    </div>
                 </div>
-                <div class="card-content">
-                    <h3>Sanitaryware</h3>
-                    <p>Italian-design commodes and artistic washbasins.</p>
+                <div class="bento-item reveal">
+                    <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?q=80&w=800&auto=format&fit=crop" alt="Sanitary">
+                    <div class="bento-overlay">
+                        <h3>Luxury Sanitary</h3>
+                    </div>
                 </div>
-            </div>
-
-            <div class="card">
-                <div class="card-img-holder">
-                    <img src="https://images.unsplash.com/photo-1616486029423-aaa478965c96?auto=format&fit=crop&w=500&q=60" alt="Bath Fittings">
+                <div class="bento-item reveal">
+                    <img src="https://images.unsplash.com/photo-1502005229766-528592e353e3?q=80&w=800&auto=format&fit=crop" alt="Wall Tiles">
+                    <div class="bento-overlay">
+                        <h3>Wall Textures</h3>
+                    </div>
                 </div>
-                <div class="card-content">
-                    <h3>Bath Fittings</h3>
-                    <p>Luxury faucets and shower systems in Chrome and Gold.</p>
+                <div class="bento-item reveal">
+                    <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=800&auto=format&fit=crop" alt="Outdoor">
+                    <div class="bento-overlay">
+                        <h3>Outdoor Pavers</h3>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="showroom" style="background-color: var(--light-bg);">
-        <div class="section-header">
-            <h2>Inside Our Showroom</h2>
-            <div class="divider"></div>
-            <p>Walk through our gallery of inspiration.</p>
+    <section class="split-section">
+        <div class="split-img reveal">
+            <img src="https://images.unsplash.com/photo-1620626011761-996317b8d101?q=80&w=800&auto=format&fit=crop" alt="Showroom">
         </div>
-        <div class="grid">
-            <div class="card">
-                <div class="card-img-holder">
-                    <img src="https://images.unsplash.com/photo-1620626011761-996317b8d101?auto=format&fit=crop&w=500&q=60" alt="Showroom View">
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-img-holder">
-                    <img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=500&q=60" alt="Display Area">
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-img-holder">
-                    <img src="https://images.unsplash.com/photo-1585412727339-54e4bae3bbf9?auto=format&fit=crop&w=500&q=60" alt="Interiors">
-                </div>
-            </div>
+        <div class="split-content reveal">
+            <h4 class="gold-text">Visit Our Showroom</h4>
+            <h2 style="font-size: 2.5rem; margin-bottom: 20px;">Experience the Texture</h2>
+            <p style="color: #ccc; margin-bottom: 30px;">
+                Photos cannot capture the true essence of our materials. Walk into our showroom to feel the finish of our matte ceramics and the gloss of our polished granite.
+            </p>
+            <ul class="feature-list">
+                <li><i class="fas fa-check"></i> Free Design Consultation</li>
+                <li><i class="fas fa-check"></i> 3D Visualization Support</li>
+                <li><i class="fas fa-check"></i> Fast Delivery across Kerala</li>
+            </ul>
         </div>
     </section>
 
-    <section id="contact">
-        <div class="section-header">
-            <h2>Visit Us</h2>
-            <div class="divider"></div>
-        </div>
-        
-        <div class="contact-wrapper">
-            <div class="contact-info-box">
-                <div class="contact-item">
-                    <strong>Address</strong>
-                    <span>Your Choice Tiles & Sanitaries<br>123 Main Street, City Name</span>
+    <section class="section contact-wrap">
+        <div class="glass-form reveal">
+            <h2 style="text-align: center; margin-bottom: 30px;">Get In Touch</h2>
+            <form>
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Name" required>
                 </div>
-                <div class="contact-item">
-                    <strong>Phone</strong>
-                    <a href="tel:+919876543210">+91 98765 43210</a>
+                <div class="form-group">
+                    <input type="tel" class="form-control" placeholder="Phone Number" required>
                 </div>
-                <div class="contact-item">
-                    <strong>Opening Hours</strong>
-                    <span>Mon - Sat: 9:00 AM - 8:30 PM<br>Sunday: Closed</span>
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Which product are you interested in?" required>
                 </div>
-            </div>
-
-            <div class="map-container">
-                <iframe 
-                    src="https://maps.google.com/maps?q=new+delhi&t=&z=13&ie=UTF8&iwloc=&output=embed" 
-                    width="100%" 
-                    height="100%" 
-                    style="border:0;" 
-                    allowfullscreen="" 
-                    loading="lazy">
-                </iframe>
-            </div>
+                <button type="submit" class="submit-btn">Send Enquiry</button>
+            </form>
         </div>
     </section>
 
-    <div class="footer">
-        <div class="footer-logo">Your Choice</div>
-        <p>&copy; 2024 Your Choice Tiles and Sanitaries. All Rights Reserved.</p>
-    </div>
+    <footer>
+        <div class="container">
+            <h3>YOUR CHOICE TILES</h3>
+            <p>Opposite Civil Station, Kerala</p>
+            <br>
+            <p>&copy; 2025 Your Choice Tiles & Sanitaries.</p>
+        </div>
+    </footer>
+
+    <script>
+        window.addEventListener('scroll', reveal);
+
+        function reveal(){
+            var reveals = document.querySelectorAll('.reveal');
+
+            for(var i = 0; i < reveals.length; i++){
+                var windowheight = window.innerHeight;
+                var revealtop = reveals[i].getBoundingClientRect().top;
+                var revealpoint = 150;
+
+                if(revealtop < windowheight - revealpoint){
+                    reveals[i].classList.add('active');
+                }
+            }
+        }
+        // Trigger once on load
+        reveal();
+    </script>
 
 </body>
 </html>
