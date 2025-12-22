@@ -91,7 +91,7 @@
         .split-img img { width: 100%; height: 100%; object-fit: cover; }
         .split-content { padding: 60px; }
 
-        /* --- CINEMATIC MAP SECTION --- */
+        /* --- CINEMATIC MAP SECTION (PRESERVED) --- */
         .cinematic-map {
             position: relative;
             width: 100%;
@@ -103,7 +103,7 @@
             background: #000;
         }
         
-        /* This div holds the IFRAME map */
+        /* Map Background */
         .map-bg { 
             position: absolute; 
             top: 0; left: 0; width: 100%; height: 100%; 
@@ -113,7 +113,7 @@
         
         .map-bg iframe { 
             width: 100%; height: 100%; border: none; 
-            /* This filter makes the map dark/grayscale to match the site */
+            /* Grayscale Filter */
             filter: grayscale(100%) invert(92%) contrast(83%); 
         }
         
@@ -139,18 +139,65 @@
         .map-btn { margin-top: 25px; display: inline-block; padding: 12px 30px; background: var(--gold); color: #000; font-weight: bold; text-decoration: none; transition: 0.3s; }
         .map-btn:hover { background: white; }
 
-        /* --- CONTACT FORM --- */
-        .contact-wrap {
-            background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?q=80&w=1920&auto=format&fit=crop');
-            background-size: cover; background-position: center;
+        /* --- QUOTE SECTION (NEW DARK STONE BACKGROUND) --- */
+        .quote-section {
+            padding: 100px 5%;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            /* The image you selected */
+            background: linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.85)), url('https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?q=80&w=1920&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
         }
-        .glass-form {
-            background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(10px); padding: 40px; border: 1px solid rgba(255,255,255,0.1); max-width: 500px; margin: 0 auto;
-        }
-        .form-control { width: 100%; background: transparent; border: none; border-bottom: 1px solid #555; padding: 15px 0; color: white; margin-bottom: 20px; outline: none; }
-        .submit-btn { width: 100%; padding: 15px; background: var(--gold); border: none; font-weight: bold; cursor: pointer; }
 
-        /* --- STYLISH FOOTER --- */
+        .glow-bg {
+            position: absolute;
+            width: 800px; height: 800px;
+            background: radial-gradient(circle, rgba(212,175,55,0.1) 0%, transparent 70%);
+            top: 50%; right: -200px;
+            transform: translateY(-50%);
+            pointer-events: none;
+        }
+
+        .quote-container {
+            max-width: 1200px; width: 100%; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; position: relative; z-index: 2;
+        }
+        .quote-text { width: 45%; padding-right: 50px; }
+        .quote-text h2 { font-size: 3.5rem; line-height: 1.2; margin-bottom: 20px; color: white; }
+        .quote-text .gold-accent { color: var(--gold); font-style: italic; }
+        .quote-text p { color: #ccc; font-size: 1.1rem; margin-bottom: 30px; }
+        
+        .feature-check { margin-bottom: 15px; color: #ccc; display: flex; align-items: center; }
+        .feature-check i { color: var(--gold); margin-right: 15px; font-size: 1.2rem; }
+
+        .quote-form-card {
+            width: 45%;
+            background: rgba(255, 255, 255, 0.05); /* Transparent to show texture */
+            backdrop-filter: blur(20px);
+            padding: 50px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+        }
+
+        .input-group { position: relative; margin-bottom: 30px; }
+        .styled-input {
+            width: 100%; background: transparent; border: none; border-bottom: 1px solid #666; padding: 15px 0; color: white; font-size: 1rem; outline: none; transition: 0.4s;
+        }
+        .styled-input:focus { border-bottom-color: var(--gold); }
+        .styled-input::placeholder { color: #888; transition: 0.3s; }
+        .styled-input:focus::placeholder { color: #ccc; transform: translateY(-5px); font-size: 0.8rem; }
+
+        .submit-btn-styled {
+            width: 100%; padding: 18px; background: linear-gradient(45deg, var(--gold), #b59226); color: #000; font-weight: 700; border: none; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; transition: 0.3s; margin-top: 10px;
+        }
+        .submit-btn-styled:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(212, 175, 55, 0.2); }
+
+        /* --- FOOTER --- */
         footer {
             background: #050608; padding-top: 80px; border-top: 1px solid rgba(212, 175, 55, 0.2);
         }
@@ -184,6 +231,13 @@
             .cinematic-map { height: 500px; }
             .footer-content { text-align: center; }
             .social-icons { justify-content: center; }
+            
+            /* Quote Section Mobile */
+            .quote-container { flex-direction: column; }
+            .quote-text, .quote-form-card { width: 100%; padding-right: 0; }
+            .quote-text { margin-bottom: 50px; text-align: center; }
+            .feature-check { justify-content: center; }
+            .glow-bg { width: 100%; right: 0; top: 20%; }
         }
     </style>
 </head>
@@ -249,14 +303,32 @@
         </div>
     </section>
 
-    <section class="section contact-wrap">
-        <div class="glass-form">
-            <h2 style="text-align: center; margin-bottom: 20px;">Get a Quote</h2>
-            <form>
-                <input type="text" class="form-control" placeholder="Name">
-                <input type="text" class="form-control" placeholder="Phone Number">
-                <button type="submit" class="submit-btn">SEND REQUEST</button>
-            </form>
+    <section class="quote-section">
+        <div class="glow-bg"></div>
+
+        <div class="quote-container">
+            <div class="quote-text">
+                <h2>Ready to transform <br><span class="gold-accent">Your Space?</span></h2>
+                <p>We provide exclusive discounts for bulk orders. Get in touch with our design consultants today.</p>
+                <div class="feature-check"><i class="fas fa-check-circle"></i> <span>Free Design Consultation</span></div>
+                <div class="feature-check"><i class="fas fa-check-circle"></i> <span>Direct Factory Pricing</span></div>
+                <div class="feature-check"><i class="fas fa-check-circle"></i> <span>Lifetime Quality Guarantee</span></div>
+            </div>
+
+            <div class="quote-form-card">
+                <form>
+                    <div class="input-group">
+                        <input type="text" class="styled-input" placeholder="Your Name" required>
+                    </div>
+                    <div class="input-group">
+                        <input type="tel" class="styled-input" placeholder="Phone Number" required>
+                    </div>
+                    <div class="input-group">
+                        <input type="text" class="styled-input" placeholder="Type of Product (e.g. Tiles, Sanitary)" required>
+                    </div>
+                    <button type="submit" class="submit-btn-styled">Get Quote</button>
+                </form>
+            </div>
         </div>
     </section>
 
