@@ -73,7 +73,7 @@
             position: relative;
             z-index: 2;
             animation: fadeUp 1s ease-out;
-            padding: 0 20px; /* Safety padding for mobile */
+            padding: 0 20px;
             width: 100%;
         }
 
@@ -119,6 +119,8 @@
         .info-box h3::before { content: ''; display: block; width: 40px; height: 1px; background: var(--gold); }
         
         .info-details { display: flex; gap: 20px; margin-bottom: 15px; }
+        
+        /* Icon Circle Default (Desktop) */
         .icon-circle {
             width: 50px; height: 50px;
             border-radius: 50%;
@@ -266,33 +268,33 @@
             }
             .nav-links.active { right: 0; }
             
-            /* --- FIXED HEADER RESPONSIVENESS --- */
+            /* Fixed Header Mobile */
             .page-header { 
-                height: 350px; /* Fixed height for mobile */
+                height: 350px; 
                 min-height: auto; 
                 background-attachment: scroll; 
             }
+            .header-content { padding: 0 15px; }
+            .page-header h1 { font-size: 2.5rem; line-height: 1.2; }
+            .page-header p { font-size: 0.8rem; letter-spacing: 2px; }
             
-            .header-content {
-                padding: 0 15px; /* Add padding so text doesn't touch edge */
-            }
-
-            .page-header h1 { 
-                font-size: 2.5rem; /* Reduced from 4.5rem to 2.5rem */
-                line-height: 1.2;
-            }
-            
-            .page-header p {
-                font-size: 0.8rem;
-                letter-spacing: 2px;
-            }
-            /* ----------------------------------- */
-            
+            /* Layout & Spacing */
             .contact-container { flex-direction: column; margin: 0 auto; padding: 40px 20px; gap: 40px; }
-            
             .contact-form-wrapper { min-width: 100%; width: 100%; }
             .styled-form { padding: 40px 25px; }
             
+            /* --- FONT SIZE FIXES FOR MOBILE INFO --- */
+            .info-box { margin-bottom: 30px; }
+            .info-box h3 { font-size: 1.4rem; } /* Smaller Headers */
+            
+            .icon-circle { width: 40px; height: 40px; font-size: 1rem; } /* Smaller Icons */
+            .info-details { gap: 15px; }
+            
+            .text-content strong { font-size: 0.95rem; } /* Smaller Strong text */
+            .text-content p { font-size: 0.9rem; } /* Smaller Paragraph text */
+            /* -------------------------------------- */
+
+            /* Footer */
             .footer-content { text-align: center; }
             .social-icons { justify-content: center; }
         }
