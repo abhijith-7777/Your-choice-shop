@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us | Your Choice</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        /* --- REUSING CORE STYLES --- */
+        :root {
+            --bg-dark: #0f1115;
+            --bg-card: #1c1f26;
+            --gold: #d4af37;
+            --gold-glow: rgba(212, 175, 55, 0.3);
+            --text-main: #ffffff;
+            --text-muted: #a0a0a0;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            font-family: 'Montserrat', sans-serif;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        h1, h2, h3, h4 { font-family: 'Cormorant Garamond', serif; font-weight: 600; }
+        
+        /* --- NAVIGATION --- */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 5%;
+            position: absolute;
+            width: 100%;
+            z-index: 1000;
+            top: 0;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.8), transparent);
+        }
+        .logo { font-size: 1.5rem; letter-spacing: 2px; text-transform: uppercase; }
+        .logo span { font-weight: 300; font-size: 0.9rem; color: var(--gold); display: block; letter-spacing: 4px;}
+        .hamburger { display: none; cursor: pointer; font-size: 1.5rem; color: var(--gold); z-index: 1001;}
+
+        .nav-links { display: flex; gap: 30px; align-items: center; }
+        .nav-links a { text-decoration: none; color: white; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; transition: 0.3s; }
+        .nav-links a:hover { color: var(--gold); }
+        .cta-btn { border: 1px solid var(--gold); padding: 8px 20px; border-radius: 20px; color: var(--gold) !important; transition: 0.3s; }
+        .cta-btn:hover { background: var(--gold); color: black !important; box-shadow: 0 0 15px var(--gold-glow); }
+
+        /* --- CINEMATIC HEADER WITH PARALLAX --- */
+        .page-header {
+            height: 50vh;
+            min-height: 400px;
+            background: linear-gradient(to bottom, rgba(15, 17, 21, 0.3), var(--bg-dark)), url('https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?q=80&w=1920&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+        }
+        
+        .header-content {
+            position: relative;
+            z-index: 2;
+            animation: fadeUp 1s ease-out;
+        }
+
+        .page-header h1 { 
+            font-size: 4.5rem; 
+            color: white; 
+            margin-bottom: 10px; 
+            text-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        
+        .page-header p { 
+            color: var(--gold); 
+            letter-spacing: 4px; 
+            text-transform: uppercase; 
+            font-size: 1rem; 
+            font-weight: 500;
+        }
+
+        /* --- CONTACT CONTAINER --- */
+        .contact-container {
+            /* INCREASED MAX-WIDTH to fit wider form */
+            max-width: 1400px; 
+            margin: -50px auto 50px auto; 
+            padding: 0 5%;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 200px; /* Slightly reduced gap to prioritize form width */
+            position: relative;
+            z-index: 10;
+            flex: 1;
+        }
+
+        /* --- INFO SIDE --- */
+        .contact-info { 
+            flex: 1; 
+            min-width: 300px; 
+            padding-top: 50px;
+            animation: fadeUp 1.2s ease-out;
+        }
+        .info-box { margin-bottom: 50px; }
+        .info-box h3 { color: white; font-size: 1.8rem; margin-bottom: 20px; display: flex; align-items: center; gap: 15px; }
+        .info-box h3::before { content: ''; display: block; width: 40px; height: 1px; background: var(--gold); }
+        
+        .info-details { display: flex; gap: 20px; margin-bottom: 15px; }
+        .icon-circle {
+            width: 50px; height: 50px;
+            border-radius: 50%;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            display: flex; align-items: center; justify-content: center;
+            color: var(--gold);
+            font-size: 1.2rem;
+            flex-shrink: 0;
+            transition: 0.3s;
+        }
+        .info-box:hover .icon-circle { background: var(--gold); color: black; box-shadow: 0 0 20px var(--gold-glow); }
+        
+        .text-content p { color: #ccc; line-height: 1.6; font-size: 1rem; }
+        .text-content strong { color: white; display: block; margin-bottom: 5px; font-weight: 400; letter-spacing: 1px; }
+
+        /* --- GLASSMORPHISM FORM --- */
+        .contact-form-wrapper { 
+            /* INCREASED FLEX VALUE TO MAKE FORM WIDER */
+            flex: 1.8; 
+            min-width: 400px; 
+            animation: fadeUp 1.4s ease-out;
+        }
+
+        .styled-form {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            padding: 60px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .styled-form::before {
+            content: '';
+            position: absolute;
+            top: -50px; right: -50px;
+            width: 150px; height: 150px;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.2) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .form-group { margin-bottom: 40px; position: relative; }
+        
+        .form-input, .form-textarea {
+            width: 100%;
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid #444;
+            padding: 15px 0;
+            color: white;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.1rem;
+            outline: none;
+            transition: 0.4s;
+        }
+
+        .form-input:focus, .form-textarea:focus { 
+            border-bottom-color: var(--gold); 
+        }
+
+        .form-label {
+            position: absolute;
+            top: 15px;
+            left: 0;
+            color: #888;
+            pointer-events: none;
+            transition: 0.4s;
+            font-size: 1rem;
+        }
+
+        /* Float label animation */
+        .form-input:focus ~ .form-label,
+        .form-input:valid ~ .form-label,
+        .form-textarea:focus ~ .form-label,
+        .form-textarea:valid ~ .form-label {
+            top: -20px;
+            font-size: 0.8rem;
+            color: var(--gold);
+            letter-spacing: 1px;
+        }
+
+        .form-textarea { height: 100px; resize: none; margin-top: 10px; }
+
+        .submit-btn {
+            width: 100%;
+            background: linear-gradient(45deg, var(--gold), #b59226);
+            color: #000;
+            border: none;
+            padding: 20px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-top: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .submit-btn:hover { 
+            transform: translateY(-3px); 
+            box-shadow: 0 15px 30px rgba(212, 175, 55, 0.2); 
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            background: #050608; padding-top: 80px; border-top: 1px solid rgba(212, 175, 55, 0.2); margin-top: 80px;
+        }
+        .footer-content {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; max-width: 1200px; margin: 0 auto; padding: 0 20px 60px 20px;
+        }
+        .footer-col h3 { color: var(--gold); margin-bottom: 25px; font-size: 1.5rem; }
+        .footer-col p { color: #888; margin-bottom: 15px; font-size: 0.9rem; line-height: 1.6; }
+        .footer-links li { list-style: none; margin-bottom: 12px; }
+        .footer-links a { text-decoration: none; color: #ccc; font-size: 0.9rem; transition: 0.3s; }
+        .footer-links a:hover { color: var(--gold); padding-left: 5px; }
+        .social-icons { display: flex; gap: 15px; margin-top: 20px; }
+        .social-icons a { width: 40px; height: 40px; border: 1px solid #333; display: flex; align-items: center; justify-content: center; border-radius: 50%; color: white; transition: 0.3s; }
+        .social-icons a:hover { background: var(--gold); border-color: var(--gold); color: black; }
+        .copyright-bar { text-align: center; padding: 20px; border-top: 1px solid #1a1a1a; color: #555; font-size: 0.8rem; }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 1200px) {
+            .contact-container { gap: 60px; }
+        }
+
+        @media (max-width: 768px) {
+            .hamburger { display: block; }
+            .nav-links { 
+                position: fixed; top: 0; right: -100%; 
+                width: 85%; height: 100vh; 
+                background: #0f1115;
+                flex-direction: column; 
+                justify-content: center; 
+                transition: 0.4s ease; 
+                box-shadow: -5px 0 25px rgba(0,0,0,0.8);
+            }
+            .nav-links.active { right: 0; }
+            
+            .page-header { height: 40vh; background-attachment: scroll; }
+            .page-header h1 { font-size: 2.8rem; }
+            
+            .contact-container { flex-direction: column; margin: 0 auto; padding: 40px 20px; gap: 40px; }
+            
+            .contact-form-wrapper { min-width: 100%; width: 100%; }
+            .styled-form { padding: 40px 25px; }
+            
+            .footer-content { text-align: center; }
+            .social-icons { justify-content: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo">Your Choice <span>Tiles & Sanitaries</span></div>
+        <div class="hamburger" onclick="toggleMenu()"><i class="fas fa-bars"></i></div>
+        <div class="nav-links" id="navLinks">
+            <a href="index.html">Home</a>
+            <a href="index.html">Collections</a>
+            <a href="index.html">Location</a>
+            <a href="contact.html" class="cta-btn">Contact Us</a>
+        </div>
+    </nav>
+
+    <header class="page-header">
+        <div class="header-content">
+            <h1>Get In Touch</h1>
+            <p>Let's Build Your Dream Space</p>
+        </div>
+    </header>
+
+    <div class="contact-container">
+        <div class="contact-info">
+            <div class="info-box">
+                <h3>Visit Showroom</h3>
+                <div class="info-details">
+                    <div class="icon-circle"><i class="fas fa-map-marker-alt"></i></div>
+                    <div class="text-content">
+                        <strong>Opp. Civil Station</strong>
+                        <p>Main Road, Pilathara,<br>Kannur, Kerala - 670501</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-box">
+                <h3>Contact Details</h3>
+                <div class="info-details">
+                    <div class="icon-circle"><i class="fas fa-phone-alt"></i></div>
+                    <div class="text-content">
+                        <strong>Call Us</strong>
+                        <p>+91 9847755657</p>
+                    </div>
+                </div>
+                <div class="info-details" style="margin-top: 20px;">
+                    <div class="icon-circle"><i class="fas fa-envelope"></i></div>
+                    <div class="text-content">
+                        <strong>Email Us</strong>
+                        <p>info@yourchoice.com</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-box">
+                <h3>Opening Hours</h3>
+                <div class="info-details">
+                    <div class="icon-circle"><i class="far fa-clock"></i></div>
+                    <div class="text-content">
+                        <strong>Mon - Sat:</strong> 9:00 AM - 8:00 PM<br>
+                        <strong>Sunday:</strong> 10:00 AM - 5:00 PM
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="contact-form-wrapper">
+            <form class="styled-form">
+                <div class="form-group">
+                    <input type="text" class="form-input" required>
+                    <label class="form-label">Full Name</label>
+                </div>
+                
+                <div class="form-group">
+                    <input type="email" class="form-input" required>
+                    <label class="form-label">Email Address</label>
+                </div>
+
+                <div class="form-group">
+                    <input type="tel" class="form-input" required>
+                    <label class="form-label">Phone Number</label>
+                </div>
+
+                <div class="form-group">
+                    <textarea class="form-textarea" required></textarea>
+                    <label class="form-label">How can we help you?</label>
+                </div>
+
+                <button type="submit" class="submit-btn">Send Message</button>
+            </form>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-col">
+                <h3>YOUR CHOICE</h3>
+                <p>Redefining luxury living with premium imported tiles and sanitary ware in Kerala.</p>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-whatsapp"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                </div>
+            </div>
+
+            <div class="footer-col">
+                <h3>Explore</h3>
+                <ul class="footer-links">
+                    <li><a href="index.html">Our Collections</a></li>
+                    <li><a href="index.html">Showroom</a></li>
+                    <li><a href="index.html">Virtual Tour</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h3>Products</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Ceramic Tiles</a></li>
+                    <li><a href="#">Sanitary Ware</a></li>
+                    <li><a href="#">Granite & Marble</a></li>
+                    <li><a href="#">Wall Cladding</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h3>Visit Us</h3>
+                <p>Main Road, Pilathara<br>Kannur, Kerala - 670501</p>
+                <p style="color: var(--gold); font-weight: bold;">+91 9847755657</p>
+                <p>info@yourchoice.com</p>
+            </div>
+        </div>
+
+        <div class="copyright-bar">
+            <p>© 2025 Your Choice Tiles & Sanitaries. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            const nav = document.getElementById('navLinks');
+            nav.classList.toggle('active');
+        }
+    </script>
+</body>
+</html>
