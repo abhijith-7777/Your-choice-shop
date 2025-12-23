@@ -73,6 +73,8 @@
             position: relative;
             z-index: 2;
             animation: fadeUp 1s ease-out;
+            padding: 0 20px; /* Safety padding for mobile */
+            width: 100%;
         }
 
         .page-header h1 { 
@@ -80,6 +82,7 @@
             color: white; 
             margin-bottom: 10px; 
             text-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            line-height: 1.1;
         }
         
         .page-header p { 
@@ -92,14 +95,13 @@
 
         /* --- CONTACT CONTAINER --- */
         .contact-container {
-            /* INCREASED MAX-WIDTH to fit wider form */
             max-width: 1400px; 
             margin: -50px auto 50px auto; 
             padding: 0 5%;
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 200px; /* Slightly reduced gap to prioritize form width */
+            gap: 200px; 
             position: relative;
             z-index: 10;
             flex: 1;
@@ -134,7 +136,6 @@
 
         /* --- GLASSMORPHISM FORM --- */
         .contact-form-wrapper { 
-            /* INCREASED FLEX VALUE TO MAKE FORM WIDER */
             flex: 1.8; 
             min-width: 400px; 
             animation: fadeUp 1.4s ease-out;
@@ -246,7 +247,8 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* --- RESPONSIVE --- */
+        /* --- RESPONSIVE MEDIA QUERIES --- */
+        
         @media (max-width: 1200px) {
             .contact-container { gap: 60px; }
         }
@@ -264,8 +266,27 @@
             }
             .nav-links.active { right: 0; }
             
-            .page-header { height: 40vh; background-attachment: scroll; }
-            .page-header h1 { font-size: 2.8rem; }
+            /* --- FIXED HEADER RESPONSIVENESS --- */
+            .page-header { 
+                height: 350px; /* Fixed height for mobile */
+                min-height: auto; 
+                background-attachment: scroll; 
+            }
+            
+            .header-content {
+                padding: 0 15px; /* Add padding so text doesn't touch edge */
+            }
+
+            .page-header h1 { 
+                font-size: 2.5rem; /* Reduced from 4.5rem to 2.5rem */
+                line-height: 1.2;
+            }
+            
+            .page-header p {
+                font-size: 0.8rem;
+                letter-spacing: 2px;
+            }
+            /* ----------------------------------- */
             
             .contact-container { flex-direction: column; margin: 0 auto; padding: 40px 20px; gap: 40px; }
             
