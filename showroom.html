@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Showroom | Your Choice Tiles & Sanitaries</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        /* --- REUSING CORE VARIABLES --- */
+        :root {
+            --bg-dark: #0f1115;
+            --bg-card: #1c1f26;
+            --gold: #d4af37;
+            --text-main: #ffffff;
+            --text-muted: #a0a0a0;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            font-family: 'Montserrat', sans-serif;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4 { font-family: 'Cormorant Garamond', serif; font-weight: 600; }
+        
+        /* --- NAVIGATION (SAME AS HOME) --- */
+        nav {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 20px 5%; position: absolute; width: 100%; z-index: 1000; top: 0;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.8), transparent);
+        }
+        .logo { font-size: 1.5rem; letter-spacing: 2px; text-transform: uppercase; z-index: 1001; }
+        .logo span { font-weight: 300; font-size: 0.9rem; color: var(--gold); display: block; letter-spacing: 4px;}
+        .hamburger { display: none; cursor: pointer; z-index: 1001; font-size: 1.5rem; color: var(--gold); }
+        .nav-links { display: flex; gap: 30px; align-items: center; }
+        .nav-links a { text-decoration: none; color: white; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; transition: 0.3s; }
+        .nav-links a:hover, .nav-links a.active { color: var(--gold); }
+        .cta-btn { border: 1px solid var(--gold); padding: 8px 20px; border-radius: 20px; color: var(--gold) !important; }
+
+        /* --- SHOWROOM HERO (PARALLAX) --- */
+        .showroom-hero {
+            height: 70vh;
+            background: linear-gradient(rgba(15, 17, 21, 0.7), var(--bg-dark)), url('https://images.unsplash.com/photo-1600607686527-6fb886090705?q=80&w=1920&auto=format&fit=crop');
+            background-attachment: fixed; /* Parallax effect */
+            background-position: center;
+            background-size: cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+        }
+        .hero-text h1 { font-size: 5rem; color: white; margin-bottom: 10px; }
+        .hero-text p { font-size: 1.2rem; letter-spacing: 3px; color: var(--gold); text-transform: uppercase; }
+        
+        /* --- INTRO TEXT --- */
+        .intro-section { padding: 80px 10%; text-align: center; max-width: 1000px; margin: 0 auto; }
+        .intro-section h2 { font-size: 3rem; margin-bottom: 30px; }
+        .intro-section p { color: var(--text-muted); line-height: 1.8; font-size: 1.1rem; }
+
+        /* --- IMMERSIVE GALLERY (MESAONRY STYLE) --- */
+        .gallery-container { padding: 0 5% 100px 5%; }
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: repeat(2, 350px);
+            gap: 20px;
+        }
+
+        .gallery-card {
+            position: relative;
+            overflow: hidden;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        /* Irregular Layout */
+        .gallery-card:nth-child(1) { grid-column: span 2; grid-row: span 2; } /* Large Main Image */
+        .gallery-card:nth-child(2) { grid-column: span 2; } /* Wide Top Image */
+        
+        .gallery-card img {
+            width: 100%; height: 100%; object-fit: cover;
+            transition: transform 0.6s ease;
+            filter: grayscale(20%);
+        }
+
+        .gallery-card:hover img { transform: scale(1.05); filter: grayscale(0%); }
+
+        .card-label {
+            position: absolute; bottom: 20px; left: 20px;
+            background: rgba(0,0,0,0.7); backdrop-filter: blur(5px);
+            padding: 10px 20px; border-left: 3px solid var(--gold);
+        }
+        .card-label h3 { color: white; margin: 0; font-size: 1.2rem; }
+        .card-label span { color: #ccc; font-size: 0.8rem; text-transform: uppercase; }
+
+        /* --- AMENITIES STRIP --- */
+        .amenities {
+            background: var(--bg-card);
+            padding: 60px 5%;
+            border-top: 1px solid rgba(212, 175, 55, 0.1);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+        .amenity-item { text-align: center; flex: 1; min-width: 200px; }
+        .amenity-item i { font-size: 2.5rem; color: var(--gold); margin-bottom: 20px; }
+        .amenity-item h4 { font-size: 1.2rem; margin-bottom: 10px; color: white; }
+        .amenity-item p { font-size: 0.9rem; color: var(--text-muted); }
+
+        /* --- VISIT PLANNER (Split Map & Hours) --- */
+        .visit-planner { display: flex; flex-wrap: wrap; }
+        
+        .hours-panel {
+            flex: 1;
+            background: #15171c;
+            padding: 80px 60px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            border-right: 1px solid rgba(255,255,255,0.05);
+        }
+        
+        .map-panel {
+            flex: 1.5;
+            height: 600px;
+            position: relative;
+        }
+        .map-panel iframe { width: 100%; height: 100%; border: none; filter: grayscale(100%) invert(92%) contrast(83%); }
+
+        .hours-box { border: 1px solid var(--gold); padding: 40px; position: relative; }
+        .hours-box h2 { font-size: 2.5rem; margin-bottom: 30px; }
+        .time-row { display: flex; justify-content: space-between; margin-bottom: 15px; border-bottom: 1px solid #333; padding-bottom: 15px; }
+        .time-row span { color: #ccc; }
+        .time-row .day { color: var(--gold); font-weight: 500; }
+        
+        .cta-visit-btn {
+            margin-top: 30px;
+            background: var(--gold);
+            color: black;
+            padding: 15px 30px;
+            border: none;
+            font-weight: bold;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: 0.3s;
+            display: inline-block;
+            text-decoration: none;
+            text-align: center;
+        }
+        .cta-visit-btn:hover { background: white; }
+
+        /* --- FOOTER (SAME) --- */
+        footer { background: #050608; padding-top: 80px; border-top: 1px solid rgba(212, 175, 55, 0.2); }
+        .footer-content { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; max-width: 1200px; margin: 0 auto; padding: 0 20px 60px 20px; }
+        .footer-col h3 { color: var(--gold); margin-bottom: 25px; font-size: 1.5rem; }
+        .footer-col p, .footer-links a { color: #888; font-size: 0.9rem; text-decoration: none; transition: 0.3s; }
+        .footer-links li { list-style: none; margin-bottom: 12px; }
+        .footer-links a:hover { color: var(--gold); padding-left: 5px; }
+        .copyright-bar { text-align: center; padding: 20px; border-top: 1px solid #1a1a1a; color: #555; font-size: 0.8rem; }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 1024px) {
+            .gallery-grid { grid-template-columns: repeat(2, 1fr); grid-template-rows: auto; }
+            .gallery-card:nth-child(1), .gallery-card:nth-child(2) { grid-column: span 2; }
+            .gallery-card { height: 300px; }
+        }
+
+        @media (max-width: 768px) {
+            .hamburger { display: block; }
+            .nav-links { 
+                position: fixed; top: 0; right: -100%; width: 85%; height: 100vh; 
+                background: #0f1115; flex-direction: column; justify-content: center; 
+                transition: 0.4s ease; box-shadow: -5px 0 25px rgba(0,0,0,0.8);
+            }
+            .nav-links.active { right: 0; }
+            
+            .showroom-hero { height: 50vh; }
+            .hero-text h1 { font-size: 3rem; }
+            
+            .visit-planner { flex-direction: column-reverse; }
+            .map-panel { height: 400px; }
+            .hours-panel { padding: 40px 20px; }
+            .intro-section { padding: 60px 5%; }
+            .intro-section h2 { font-size: 2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo">Your Choice <span>Tiles & Sanitaries</span></div>
+        <div class="hamburger" onclick="toggleMenu()"><i class="fas fa-bars"></i></div>
+        <div class="nav-links" id="navLinks">
+            <a href="index.html" onclick="toggleMenu()">Home</a>
+            <a href="#" onclick="toggleMenu()">Collections</a>
+            <a href="showroom.html" class="active" onclick="toggleMenu()">Showroom</a>
+            <a href="contact.html" class="cta-btn" onclick="toggleMenu()">Contact Us</a>
+        </div>
+    </nav>
+
+    <section class="showroom-hero">
+        <div class="hero-text">
+            <p>Pilathara, Kannur</p>
+            <h1>The Gallery</h1>
+            <p>Where design comes to life</p>
+        </div>
+    </section>
+
+    <section class="intro-section">
+        <h2>A Tactile Experience</h2>
+        <p>Photos can inspire, but only touch can convince. Our showroom is designed not just as a store, but as an experience center. Walk through curated mockups, feel the texture of imported Italian marble, and see how light interacts with our premium sanitary ware. We invite you to bring your floor plans and explore possibilities.</p>
+    </section>
+
+    <div class="gallery-container">
+        <div class="gallery-grid">
+            <div class="gallery-card">
+                <img src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?q=80&w=1200&auto=format&fit=crop" alt="Main Showroom Floor">
+                <div class="card-label">
+                    <h3>The Main Hall</h3>
+                    <span>Large Format Tiles</span>
+                </div>
+            </div>
+            <div class="gallery-card">
+                <img src="https://images.unsplash.com/photo-1552321988-30f0def48017?q=80&w=1200&auto=format&fit=crop" alt="Bathroom Setup">
+                <div class="card-label">
+                    <h3>Sanitary Lounge</h3>
+                    <span>Mockup Displays</span>
+                </div>
+            </div>
+            <div class="gallery-card">
+                <img src="https://images.unsplash.com/photo-1618221469555-7f3ad97540d6?q=80&w=600&auto=format&fit=crop" alt="Marble Slab">
+                <div class="card-label">
+                    <h3>Stone Library</h3>
+                    <span>Granite & Marble</span>
+                </div>
+            </div>
+            <div class="gallery-card">
+                <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?q=80&w=600&auto=format&fit=crop" alt="Faucets">
+                <div class="card-label">
+                    <h3>Fittings</h3>
+                    <span>Premium Brassware</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section class="amenities">
+        <div class="amenity-item">
+            <i class="fas fa-pencil-ruler"></i>
+            <h4>Design Consultants</h4>
+            <p>Expert advice to match tiles with your paint and furniture.</p>
+        </div>
+        <div class="amenity-item">
+            <i class="fas fa-car"></i>
+            <h4>Ample Parking</h4>
+            <p>Hassle-free parking right in front of the showroom.</p>
+        </div>
+        <div class="amenity-item">
+            <i class="fas fa-truck-loading"></i>
+            <h4>Instant Loading</h4>
+            <p>Attached warehouse for immediate product pickup.</p>
+        </div>
+    </section>
+
+    <section class="visit-planner">
+        <div class="hours-panel">
+            <div class="hours-box">
+                <h2>Plan Your Visit</h2>
+                <div class="time-row">
+                    <span class="day">Mon - Sat</span>
+                    <span>09:00 AM - 08:00 PM</span>
+                </div>
+                <div class="time-row">
+                    <span class="day">Sunday</span>
+                    <span>10:00 AM - 05:00 PM</span>
+                </div>
+                <br>
+                <p style="color: #888; margin-bottom: 20px;">Opposite Civil Station, Main Road<br>Pilathara, Kannur</p>
+                <a href="tel:+919847755657" class="cta-visit-btn">Call for Appointment</a>
+            </div>
+        </div>
+        <div class="map-panel">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15606.594751430037!2d75.2443075!3d12.0683075!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ba46d299499703f%3A0x6280436d41a7d189!2sYour%20Choice%20Tiles%20%26%20Sanitaries!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin" allowfullscreen="" loading="lazy"></iframe>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-col">
+                <h3>YOUR CHOICE</h3>
+                <p>Redefining luxury living with premium imported tiles and sanitary ware in Kerala.</p>
+            </div>
+            <div class="footer-col">
+                <h3>Explore</h3>
+                <ul class="footer-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="#">Collections</a></li>
+                    <li><a href="showroom.html">Showroom</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Contact</h3>
+                <p>Main Road, Pilathara<br>Kannur, Kerala</p>
+                <p style="color: var(--gold);">+91 9847755657</p>
+            </div>
+        </div>
+        <div class="copyright-bar">
+            <p>© 2025 Your Choice Tiles & Sanitaries.</p>
+        </div>
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            const nav = document.getElementById('navLinks');
+            nav.classList.toggle('active');
+        }
+    </script>
+</body>
+</html>
